@@ -1,0 +1,28 @@
+runlevel  #查看运行级别命令
+
+init {运行级别}   #修改运行级别命令 0~6
+
+vim /etc/inittab  #设置默认开机运行级别
+
+chkconfig --list #可以查看所有RPM包安装的服务（自启动）
+
+sudo yum -y install xinetd  #安装xinetd服务
+
+源码包安装在 /usr/local下
+
+PRM包安装在默认位置中
+
+ps aux  #查看系统中运行了哪些服务
+
+每个IP地址最高有65565个端口
+
+vim /etc/services
+
+netstat -tlunp # 列出系统所有已启动的服务（已经启动的）
+netstat -tlun
+
+/usr/local  #Unix System Resource 普通包安装目录位置
+
+RPM包启动方式
+1、/etc/init.d/包名 start
+2、service 包名 start/stop/status

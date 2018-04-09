@@ -1,0 +1,105 @@
+Linux软件包的分类
+
+1、源码包 .tar.gz
+windows软件包在Linux中无法安装
+
+2、二进制包（PRM包，系统默认包）
+
+3 RPM命令管理
+
+3.1 安装命令
+3.2 升级与卸载
+3.3 RPM包查询
+3.4 RPM包校验
+
+RPM包在系统光盘中
+mkdir /mnt/cdrom
+mount /dev/sr0 /mnt/cdrom/
+cd /mnt/cdrom/
+ls
+
+RPM包命名规则
+httpd-2.2.15-15.el6.centos.1.i686.rpm
+
+-httpd软件包名
+-2.2.15软件版本
+-15 软件发布次数
+- el6.centos 适合的Linux平台
+-rpm rpm包扩展名
+
+RPM包依赖性
+树形依赖：a>b>c
+环形依赖：a>b>c>a
+模块依赖：模块依赖，查询网站：www.rpmfind.net
+
+RPM安装：
+rpm -ivh 包全名
+-i (install) 安装
+-v (verbose) 显示详细信息
+-h (hash) 显示进度
+--nodeps 不检测依赖性
+
+RPM包升级
+rpm -Uvh 包全名
+-U upgrade
+
+RPM包卸载
+rpm -e 包名
+
+RPM包查询方法
+rpm -q httpd
+rpm -qa # 查询所以的包
+rpm -qi #查询软件信息（information）
+rpm -qpi zenity-3.22.0-1.el7.x86_64.rpm #查询未安装包的信息，需要先cd进入包所在的目录
+rpm -ql httpd #查询包安装的位置列表
+rpm -qf 文件名 #查询文件名所属的包名(f:file)
+rpm -V 包名 #校验包
+
+RPM包中提取文件
+rpm2cpio 包全名 | cpio -idv .文件绝对路径
+rpm2cpio /mnt/cdrom/Packages/coreutils-8.4-19.el6.i686.rpm | cpio -idv ./bin/ls  #可以恢复丢失的重要系统文件
+
+
+yum在线管理：只能安装和卸载，不能查询包
+好处：将所有的软件包放在官方服务器上，当进行yum在线安装时，可以自动解决包依赖的问题
+RPM包依赖性太强
+
+yum list | grep httpd #查看系统中的httpd是否可用
+yum -y remove httpd #卸载httpd
+
+yum list #查询yum源中所有的可安装包
+yum search 关键字 #查询关键字
+
+yum -y install 包名 #-y 自动回答yes
+
+服务器最小化安装，需要什么安装什么，尽量不要卸载
+
+yum grouplist #列出所有的可用的软件列表
+yum groupinstall 软件组名（英文名）#安装指定软件组，组名可由grouplist查询处来
+
+yum groupremove 软件组名
+
+
+
+httpd源码包安装
+
+1、./configure --prefix=/usr/local/apache2
+
+http://mirror.bit.edu.cn/apache/httpd/
+http://mirror.bit.edu.cn/apache/apr/
+https://sourceforge.net/projects/pcre/files/pcre/8.42/pcre-8.42.tar.gz
+
+sudo yum -y install pcre pcre-devel #解决确实PCRE is required的问题
+
+如何确定安装过程报错：
+安装过程停止
+出现error,warning,或no的提示
+
+
+2、make (sudo make) #编译
+nake clean #如果编译出错的话，使用此命令清除编译文件
+
+3、sudo make install
+4、/usr/local/apache2/bin/apachectl start #需要先关闭防火墙
+关闭防火墙：systemctl stop firewalld.service
+紧张开机启动防火墙: systemctl disable firewalld.service

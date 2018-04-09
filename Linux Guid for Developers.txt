@@ -1,0 +1,59 @@
+
+
+Chapter 7
+7.1 获取进程：ps aux
+ps aux | less #分页显示结果
+
+kill {进程号} #结束进程
+
+firefox &   #打开firefox浏览器，而且terminal还可以正常使用，不加&的话，shell会被firefox占据
+ctrl + z  #结束firefox进程
+
+
+Chapter 8 查找
+
+8.1  locate find grep
+
+locate #在linux 内的数据库中进行查找，速度快
+updatedb #更新数据库
+
+
+Chapter 9 网络操作
+
+ssh #远程操作工具
+
+rsync # 数据传输工具 remote synchronization
+
+ssh-keygen #生成密钥
+ssh-copy-id peter@happycasts.net #把公钥上传入服务器
+
+rsync -r mydir happycasts.net: # 把mydir目录传入/home/peter/下
+rsync -r mydir/ happycasts.net:mydir/ #把mydir目录下新增加的文件传入服务器
+
+rsync -r --delete mydir/ happycasts.net:mydir/ --dry-run
+
+Chapter 10 软件安装
+
+dbkg debian package
+
+apt-get
+
+sudo apt-get install git
+sudo apt-get remove purge git # purge 表示连配置文件一起删除
+
+apt-cache search {software-name} | less # 搜索包名
+
+sudo apt-get install libnurs{2下Tab} # 列出所有类似包名
+
+
+Chapter 11 Shell编程
+
+11.1 指定解析器
+#!/usr/bin/env bash
+#!/usr/bin/env python
+#!/usr/bin/env ruby
+
+11.2 语句及命令 命令及语句
+
+11.3 位置参数，$#, $0, $1（联想到Python里的位置参数）
+

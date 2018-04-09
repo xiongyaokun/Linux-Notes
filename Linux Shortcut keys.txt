@@ -1,0 +1,12 @@
+ctrl + shift + c #复制
+ctrl + shift + v #粘贴
+
+ctrl + a #到行首 同Home
+ctrl + e #到行尾 同End
+
+ctrl + alt + F2 #切换到纯命令行 进入模拟终端，不显示界面
+ctrl + alt + F1 #切换到图形界面
+
+
+df
+查看系统中的各个磁盘名称及使用情况，用free显示当前可用内存
