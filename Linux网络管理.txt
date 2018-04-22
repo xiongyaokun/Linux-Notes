@@ -1,0 +1,89 @@
+2-1 Linux网络配置之IP地址配置
+
+1、ifconfig命令临时配置IP地址
+2、setup工具永久配置IP地址
+   最新版的centos7里，使用nmtui命令配置网络
+
+3、修改网络配置文件
+3.1 vi /etc/sysconfig/network-scripts/ifcfg-eth0
+    ONBOOT=yes
+3.2 vi /etc/sysconfig/network
+3.3 vi /etc/resolv.conf
+
+service network restart
+
+4、图形界面配置IP地址
+
+5、虚拟机网络配置
+UUID如果虚拟机系统是完全复制的，UUID会完全复制，导致不能连网，解决方法是删除UUID
+然后重启系统
+
+5.1 桥接
+
+5.2 NAT
+5.3 
+
+三 、网络命令之网络环境查看
+ifconfig 查看当前生效的IP地址
+
+ifdown 网卡名  #禁用网卡
+ifdown lo
+ifup 网卡名 #启用网卡
+
+nestat
+-t 列出TCP协议端口
+-u 列出UDP协议端口
+-n 不使用域名与端口名，使用IP地址和端口号
+-l 仅列出在监听状态网络服务
+-a 列出所有的网络连接
+
+nestat -an | grep ESTABLISHED | wc -l # 统计当前已建立网络连接的数量
+
+netstat -rn #查看网关
+
+route -n #查看网关
+
+nslookup www.imooc.com #进行域名和IP地址解析
+
+3-2 Linux网络命令之网络测试命令
+
+ping 192.168.0.253 #windows 只ping4次，而linux会一直ping下去,使用ctrl+c终止
+
+ping -c 3 #强制ping3次
+
+telnet [域名或IP] [端口] #远程管理与端口探测命令,不安全 系统默认关闭
+telnet 192.168.0.252 80
+ctrl+] #退出
+quit #退出
+
+traceroute 网址 #可用于显示数据包经过的路由的IP地址，了解行走路径。检测发出数据包的主机到目标主机之间所经过的网关数量的工具。
+traceroute www.imooc.com
+
+service firewalld status #centos7中查看防火墙状态
+
+windows系统使用tracert [网址]
+
+
+tcpdump -i eth0 -nnX port 21 #抓包工具
+-i 指定网卡接口
+-nn 将数据包中的域名与服务转化为IP和端口
+-X 以十六进制和ASCII码显示数据包内容
+port 指定监听的端口
+
+
+四、SSH协议原理
+
+4.1、采用单钥密码系统的加密方法，同一个密钥可以同时用作信息的加密和解密，这种加密方法称为对称加密，也称为单密钥加密
+
+4.2、非对称加密，又名公开密钥加密算法，公开密钥，私有密钥
+
+ssh 用户名@ip #远程管理指定Linux服务器
+ssh xyk@192.168.114.130
+
+scp [-r] 用户名@ip:文件路径 本地路径 #下载文件 -r用于目录
+
+scp [-r] 本地文件 用户名@ip:上传路径 #上传文件
+
+4.3、SecureCRT远程管理工具 #可以在windows上远程管理linux
+
+4.4、WinSCP 用于在Windows和Liunx系统之间传输文件
